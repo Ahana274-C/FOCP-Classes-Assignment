@@ -1,1 +1,48 @@
+#include<iostream>
+#include<string>
+#include<vector>
+using namespace std;
+
+class student{
+private:
+    string s_name;
+    int roll_no;
+    float CGPA;
+    vector<string> courses;
+
+public:
+    student():s_name("ABC"),roll_no(0),CGPA(0.0) {}
+
+    student(string(n),int(roll),float C,vector<string>cr):s_name(n),roll_no(roll),CGPA(C),courses(cr) {}
+
+    student(const student&other):s_name(other.s_name),roll_no(other.roll_no),CGPA(other.CGPA),courses(other.courses) {}
+
+    ~student(){
+        cout<<"destructors called for student: "<<s_name<<endl;
+    }
+
+    void display(){
+        cout<<"name of the student: "<<s_name<<endl;
+        cout<<"roll number of the student: "<<roll_no<<endl;
+        cout<<"CGPA of the student: "<<CGPA<<endl;
+        cout<<"course chosen by the student: ";
+        for(string & course:courses){
+            cout<<course<<"";
+        }
+        cout<<endl;
+    }
+};
+
+int main(){
+    student s1;
+
+    vector<string>courses={"Mathematics,",  "C++,"  , "Chemistry" };
+    student s2("Ahana",274,8.4,courses);
+
+    student s3=s2;
+
+    s1.display();
+    s2.display();
+    s3.display();
+}
 
