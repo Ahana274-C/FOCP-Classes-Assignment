@@ -67,7 +67,7 @@ int main(){
 
     s1.display();
     s1.addcourse("Physics,");
-    s1.addcourse("effective communication");
+    s1.addcourse("Effective Communication");
     s1.update_CGPA(8.4);
     s1.update_CGPA(9.5);
     
