@@ -1,0 +1,95 @@
+#include <iostream>
+#include <string>
+#include <vector>
+using namespace std;
+
+class student {
+private:
+    string s_name;
+    int roll_no;
+    float CGPA;
+    vector<string> courses;
+
+public:
+    student() : s_name("ABC"), roll_no(0), CGPA(0.0) {}
+
+    student(string n, int roll, float C, vector<string> cr) : s_name(n), roll_no(roll), CGPA(C), courses(cr) {}
+
+    student(const student& other) : s_name(other.s_name), roll_no(other.roll_no), CGPA(other.CGPA), courses(other.courses) {}
+
+    ~student() {
+        cout << "Destructor called for student: " << s_name << endl;
+    }
+
+    int getRollNo() const {
+        return roll_no;
+    }
+
+    void addCourse(const string& course) {
+        courses.push_back(course);
+    }
+
+    void updateCGPA(float newCGPA) {
+        CGPA = newCGPA;
+    }
+
+    void display() const {
+        cout << "Name: " << s_name << endl;
+        cout << "Roll Number: " << roll_no << endl;
+        cout << "CGPA: " << CGPA << endl;
+        cout << "Courses: ";
+        for (const string& course : courses) {
+            cout << course << " ";
+        }
+        cout << endl;
+    }
+};
+
+class StudentManagementSystem {
+private:
+    vector<student> students;
+
+public:
+    void addStudent(const student& s) {
+        students.push_back(s);
+    }
+
+    void searchStudent(int roll) const {
+        for (const auto& s : students) {
+            if (s.getRollNo() == roll) {
+                cout << "Student Found:" << endl;
+                s.display();
+                return;
+            }
+        }
+        cout << "Student with Roll No " << roll << " not found." << endl;
+    }
+
+    void displayAllStudents() const {
+        for (const auto& s : students) {
+            s.display();
+            cout << "" << endl;
+        }
+    }
+};
+
+int main() {
+    StudentManagementSystem sms;
+    student s1;
+    sms.addStudent(s1);
+    vector<string> courses = {"Mathematics", "C++", "Chemistry"};
+    student s2("Ahana", 274, 8.4, courses);
+    sms.addStudent(s2);
+    student s3 = s2;
+    sms.addStudent(s3);
+
+    cout << "\nDisplaying All Students:" << endl;
+    sms.displayAllStudents();
+
+    int roll;
+    cout << "\nEnter roll number to search: ";
+    cin >> roll;
+    sms.searchStudent(roll);
+
+    return 0;
+}
